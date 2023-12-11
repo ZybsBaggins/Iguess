@@ -1,6 +1,6 @@
 <?php
 
-$server = "localhost";
+$server = "192.168.188.105";
 $username = "root";
 $password = "";
 $db = "projekt3";
