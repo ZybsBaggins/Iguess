@@ -1,15 +1,21 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $pin = $_POST["pin"];
-    $action = $_POST["action"];
+    // Validate and sanitize user input
+    $pin = filter_input(INPUT_POST, 'pin', FILTER_VALIDATE_INT);
+    $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
 
-    // Execute the command to control the GPIO pin
-    if ($action == "unlock") {
-        exec("gpio write $pin 1");
-        echo "Unlocked";
-    } elseif ($action == "lock") {
-        exec("gpio write $pin 0");
-        echo "Locked";
+    if ($pin !== false && ($action === 'unlock' || $action === 'lock')) {
+        // Execute the command to control the GPIO pin
+        if ($action == "unlock") {
+            exec("python3 /usr/bin/gpio write $pin 24", $output, $return_var);
+            echo "Unlocked";
+        } elseif ($action == "lock") {
+            exec("python3 /usr/bin/gpio write $pin 16", $output, $return_var);
+            echo "Locked";
+        }
+    } else {
+        // Invalid input, handle error or log it
+        echo "Invalid input";
     }
 }
 ?>

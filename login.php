@@ -94,7 +94,7 @@ session_start();
         $(document).ready(function () {
             $(".button-left").click(function () {
                 // Send a signal to Raspberry Pi when the left button is clicked
-                $.post("gpio_control.php", { pin: 00, action: "unlock" }, function (data) {
+                $.post("gpio_control.php", { pin: 24, action: "unlock" }, function (data) {
                     console.log(data);
 
                     // Update status and change color
@@ -105,7 +105,7 @@ session_start();
 
             $(".button-right").click(function () {
                 // Send a signal to Raspberry Pi when the right button is clicked
-                $.post("gpio_control.php", { pin: 11, action: "lock" }, function (data) {
+                $.post("gpio_control.php", { pin: 16, action: "lock" }, function (data) {
                    console.log(data);
 
                     // Update status and change color
