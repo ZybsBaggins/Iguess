@@ -7,11 +7,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($pin !== false && ($action === 'unlock' || $action === 'lock')) {
         // Execute the command to control the GPIO pin
         if ($action == "unlock") {
-            exec("echo in > /sys/class/gpio/gpio18/direction write $pin 24", $output, $return_var);
-            echo "Unlocked";
+            shell_exec("/usr/bin/gpio -g mode $pin out");
+            shell_exec("/usr/bin/gpio -g write $pin 1");
+            echo "Pin $pin is on";
         } elseif ($action == "lock") {
-            exec("echo out > /sys/class/gpio/gpio18/direction write $pin 16", $output, $return_var);
-            echo "Locked";
+            shell_exec("/usr/bin/gpio -g write $pin 0");
+            echo "Pin $pin is off";
         }
     } else {
         // Invalid input, handle error or log it
