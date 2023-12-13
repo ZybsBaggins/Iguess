@@ -93,25 +93,22 @@ session_start();
     <script>
         $(document).ready(function () {
             $(".button-left").click(function () {
-                // Send a signal to Raspberry Pi when the left button is clicked
-                $.post("gpio_control.php", { pin: 24, action: "unlock" }, function (data) {
-                    console.log(data);
-
-                    // Update status and change color
-                    $(".status h1").text("Døren er åben");
-                    $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
-                });
+                // Execute the C++ program to control the GPIO pin
+                <?php shell_exec('/path/to/gpio_left'); ?>
+                
+                // Update status and change color
+                $(".status h1").text("Døren er åben");
+                $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
             });
 
             $(".button-right").click(function () {
-                // Send a signal to Raspberry Pi when the right button is clicked
-                $.post("gpio_control.php", { pin: 16, action: "lock" }, function (data) {
-                   console.log(data);
-
-                    // Update status and change color
-                    $(".status h1").text("Døren er låst");
-                    $(".status").css("background-color", "red");
-                });
+                // Execute the C++ program to control the GPIO pin
+                <?php shell_exec('/path/to/gpio_rignt'); ?>
+                
+                // Update status and change color
+                $(".status h1").text("Døren er åben");
+                $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
+            });
             });
         });
     </script>
