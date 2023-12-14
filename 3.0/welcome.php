@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <img src="aulogo.jpg" height="100px">
     </div>
     <div class="container">
-        <form method="post" action="login.php">
+        <form method="post" action="welcome.php">
             <div class="status">
                 <h1>
                     <?php
