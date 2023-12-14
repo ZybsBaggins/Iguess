@@ -8,14 +8,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         shell_exec("/usr/local/bin/gpio -g write 18 1");
         
         //Log
-        error_log("Button ON pressed");
+        $logFilePath = "/var/www/html/button.log";
+        error_log("Button on pressed.", 3, $logFilePath);
 
     } elseif (isset($_POST['off'])) {
         // Set the GPIO pin to LOW (OFF)
         shell_exec("/usr/local/bin/gpio -g write 18 0");
         
         //Log
-        error_log("Button off pressed");;
+        $logFilePath = "/var/www/html/button.log";
+        error_log("Button off pressed.", 3, $logFilePath);
     }
 }
 ?>
