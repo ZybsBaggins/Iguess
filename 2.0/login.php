@@ -112,7 +112,7 @@ $pin->setValue(OutputPinInterface::VALUE_LOW);
                 // Execute the C++ program to control the GPIO pin
                 <?php
                 // Toggle the state of pin 18 (on click)
-                $pin->setValue($pin->getValue() === OutputPinInterface::VALUE_LOW ? OutputPinInterface::VALUE_HIGH : OutputPinInterface::VALUE_LOW);
+                $pin->setValue(PinInterface::VALUE_HIGH);
                 ?>
                 // Update status and change color
                 $(".status h1").text("Døren er åben");
@@ -123,7 +123,7 @@ $pin->setValue(OutputPinInterface::VALUE_LOW);
                 // Execute the C++ program to control the GPIO pin
                 <?php
                 // Toggle the state of pin 18 (on click)
-                $pin->setValue($pin->getValue() === OutputPinInterface::VALUE_LOW ? OutputPinInterface::VALUE_HIGH : OutputPinInterface::VALUE_LOW);
+                $pin->setValue(PinInterface::VALUE_LOW);
                 ?>
                 // Update status and change color
                 $(".status h1").text("Døren er låst");
