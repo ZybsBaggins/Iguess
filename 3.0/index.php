@@ -1,18 +1,25 @@
 <?php
 session_start();
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST['on'])) {
         // Set the GPIO pin to HIGH (ON)
         shell_exec("/usr/bin/gpio -g write 18 1");
         
         //Log
-        error_log("Button on pressed\n");
+        $logMessage = "Button ON pressed";
+        echo $logMessage; // Echo the message to be captured in the terminal
+        exec("echo '" . $logMessage . "' >> /dev/tty1");
 
     } elseif (isset($_POST['off'])) {
         // Set the GPIO pin to LOW (OFF)
         shell_exec("/usr/bin/gpio -g write 18 0");
-        error_log("Button off pressed\n");
+        
+        //Log
+        $logMessage = "Button OFF pressed";
+        echo $logMessage; // Echo the message to be captured in the terminal
+        exec("echo '" . $logMessage . "' >> /dev/tty1");
     }
 }
 ?>
