@@ -64,7 +64,7 @@ int main() {
 
     export_pin(num);
 
-    set_direction("in", num); // Change direction to "out"
+    set_direction("out", num); // Change direction to "out"
     int button = 1;
 
     set_value(LOW, num);
