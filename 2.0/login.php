@@ -1,22 +1,5 @@
 <?php
 session_start();
-
-require_once 'vendor/autoload.php'; // Include the autoloader for PiPHP GPIO
-
-use PiPHP\GPIO\GPIO;
-use PiPHP\GPIO\Pin\PinInterface;
-use PiPHP\GPIO\Pin\InputPinInterface;
-use PiPHP\GPIO\Pin\OutputPinInterface;
-
-// Create a GPIO object
-$gpio = new GPIO();
-
-// Retrieve pin 18 and configure it as an output pin
-$pin = $gpio->getOutputPin(18);
-
-// Set the initial state of the pin (e.g., low)
-$pin->setValue(PinInterface::VALUE_HIGH);
-
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +76,7 @@ $pin->setValue(PinInterface::VALUE_HIGH);
                  <input type="submit" value="OFF" name="off">
          </form>
          <?php
-         $setmode17 = shell_exec("/usr/local/bin/gpio -g mode 18 out");
+         $setmode18 = shell_exec("/usr/local/bin/gpio -g mode 18 out");
          if(isset($_GET['on'])){
                  $gpio_on = shell_exec("/usr/local/bin/gpio -g write 18 1");
                  echo "LED is on";
