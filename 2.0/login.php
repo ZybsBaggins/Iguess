@@ -4,6 +4,7 @@ session_start();
 require_once 'vendor/autoload.php'; // Include the autoloader for PiPHP GPIO
 
 use PiPHP\GPIO\GPIO;
+use PiPHP\GPIO\Pin\PinInterface;
 use PiPHP\GPIO\Pin\InputPinInterface;
 use PiPHP\GPIO\Pin\OutputPinInterface;
 
