@@ -87,33 +87,22 @@ $pin->setValue(PinInterface::VALUE_HIGH);
 </head>
 
 <body>
-    <div>
-        <img src="aulogo.jpg" height="100px">
-    </div>
-    <div class="container">
-        <form method="get" action="gpio.php">
-            <div class="status">
-                <h1>Døren er åben</h1>
-            <input type="submit" value="ON" name= "on">
-            <input type="submit" value="OFF" name= "off">
-            </div>
-
-        </form>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    
-    <?php
-                $setmode17 = shell_exec("/usr/local/bin/gpio -g mode 18 out");
-                if(isset($_GET['on'])){
-                    $gpio_on = shell_exec("/usr/local/bin/gpio -g write 18 1");
-                    echo "led on";
-                }
-                else if(isset($_GET['off'])){
-                    $gpio_on = shell_exec("/usr/local/bin/gpio -g write 18 0");
-                    echo "led off";
-                }
-    ?>
-    
-</body>
+         LED Control:
+         <form method="get" action="gpio.php">
+                 <input type="submit" value="ON" name="on">
+                 <input type="submit" value="OFF" name="off">
+         </form>
+         <?php
+         $setmode17 = shell_exec("/usr/local/bin/gpio -g mode 18 out");
+         if(isset($_GET['on'])){
+                 $gpio_on = shell_exec("/usr/local/bin/gpio -g write 18 1");
+                 echo "LED is on";
+         }
+         else if(isset($_GET['off'])){
+                 $gpio_off = shell_exec("/usr/local/bin/gpio -g write 18 0");
+                 echo "LED is off";
+         }
+         ?>
+         </body>
+         
 </html>
