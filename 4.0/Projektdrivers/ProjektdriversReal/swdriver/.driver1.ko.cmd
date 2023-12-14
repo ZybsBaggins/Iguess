@@ -1,0 +1,1 @@
+cmd_/home/stud/Projektdrivers/swdriver/driver1.ko := arm-poky-linux-gnueabi-ld -r -EL --build-id  -T ./scripts/module-common.lds -T ./arch/arm/kernel/module.lds -o /home/stud/Projektdrivers/swdriver/driver1.ko /home/stud/Projektdrivers/swdriver/driver1.o /home/stud/Projektdrivers/swdriver/driver1.mod.o;  true

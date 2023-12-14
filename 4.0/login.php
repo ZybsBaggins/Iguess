@@ -25,7 +25,6 @@ if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
             // Store the username in the session to indicate that the user is logged in
             $_SESSION["brugernavn"] = $brugernavn;
             header("Location: index.php");
-            
             exit(); // Make sure to exit after a header redirect
         } else {
             echo "Invalid username or password";

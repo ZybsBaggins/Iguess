@@ -1,0 +1,1 @@
+cmd_/home/stud/Projekt/spi_drv.ko := arm-poky-linux-gnueabi-ld -r -EL --build-id  -T ./scripts/module-common.lds -T ./arch/arm/kernel/module.lds -o /home/stud/Projekt/spi_drv.ko /home/stud/Projekt/spi_drv.o /home/stud/Projekt/spi_drv.mod.o;  true

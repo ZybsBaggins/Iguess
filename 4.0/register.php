@@ -1,37 +1,32 @@
-<?php  
+<?php
 
 include "db.php";
 
 session_start();
 
-if(isset($_SESSION["brugernavn"])){
-    // User is already logged in, redirect them to another page or display a message
-    header("Location: index.php"); // Change to the appropriate page
-    exit();
-}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (
+        isset($_POST["navn"]) &&
+        isset($_POST["brugernavn"]) &&
+        isset($_POST["password"])
+    ) {
+        $navn = $_POST["navn"];
+        $brugernavn = $_POST["brugernavn"];
+        $password = $_POST["password"];
 
-if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
-    $brugernavn = $_POST["brugernavn"];
-    $password = $_POST["password"];
+        
+        $sql = "INSERT INTO brugere (navn, brugernavn, password) VALUES ('$navn', '$brugernavn', '$password')";
+        $run_query = mysqli_query($conn, $sql);
 
-    // Assuming $conn is your database connection
-    $sql = "SELECT * FROM brugere WHERE brugernavn = '$brugernavn' AND password = '$password'";
-    $run_query = mysqli_query($conn, $sql);
-
-    // Check if the query was successful
-    if($run_query){
-        // Check if there is a matching user in the database
-        if(mysqli_num_rows($run_query) > 0){
-            // Store the username in the session to indicate that the user is logged in
-            $_SESSION["brugernavn"] = $brugernavn;
-            header("Location: index.php");
-            
+        // Check if the query was successful
+        if ($run_query) {
+            echo "Registration successful";
+            // Redirect to login page
+            header("Location: login.php");
             exit(); // Make sure to exit after a header redirect
         } else {
-            echo "Invalid username or password";
+            echo "Query failed: " . mysqli_error($conn);
         }
-    } else {
-        echo "Query failed: " . mysqli_error($conn);
     }
 }
 ?>
@@ -41,7 +36,7 @@ if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Registration Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,12 +45,15 @@ if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
         .container {
         width: 300px;
         margin: auto;
-        margin-top: 50px;
+        margin-top: 100px;
         background-color: rgba(0, 0, 0, 0.5); /* Black with 80% opacity */
         padding: 20px; /* Add padding for content inside the container */
         border-radius: 10px; /* Add rounded corners */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Add a subtle box shadow */
         color: #fff;
+        }
+        .input-box {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -65,9 +63,10 @@ if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
     </div>
     <div class="container">
         <form method="post" action="">
-            <div>
-                <h1> Dørlås Login
-            </div>  
+            <div class="input-box">
+                <label for="navn">Name:</label>
+                <input type="text" name="navn" id="navn" required>
+            </div>
             <div class="input-box">
                 <label for="brugernavn">Username:</label>
                 <input type="text" name="brugernavn" id="brugernavn" required>
@@ -76,11 +75,8 @@ if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" required>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit">Register</button>
         </form>
-
-
-        <button onclick="location.href='register.php'">Register</button>
     </div>
 </body>
 </html>
