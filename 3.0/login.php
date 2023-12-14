@@ -4,6 +4,12 @@ include "db.php";
 
 session_start();
 
+if(isset($_SESSION["brugernavn"])){
+    // User is already logged in, redirect them to another page or display a message
+    header("Location: index.php"); // Change to the appropriate page
+    exit();
+}
+
 if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
     $brugernavn = $_POST["brugernavn"];
     $password = $_POST["password"];
@@ -16,8 +22,8 @@ if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
     if($run_query){
         // Check if there is a matching user in the database
         if(mysqli_num_rows($run_query) > 0){
-            echo "success";
-
+            // Store the username in the session to indicate that the user is logged in
+            $_SESSION["brugernavn"] = $brugernavn;
             header("Location: index.php");
             exit(); // Make sure to exit after a header redirect
         } else {
