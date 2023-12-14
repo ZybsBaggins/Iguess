@@ -14,7 +14,7 @@ $gpio = new GPIO();
 $pin = $gpio->getOutputPin(18);
 
 // Set the initial state of the pin (e.g., low)
-$pin->setValue(OutputPinInterface::VALUE_LOW);
+$pin->setValue(PinInterface::VALUE_HIGH);
 
 ?>
 
