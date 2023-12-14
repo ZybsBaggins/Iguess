@@ -93,22 +93,20 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     
     <script>
-        $(document).ready(function () {
-            $(".button-left").click(function () {       
-                    // Update status and change color
-                    $(".status h1").text("Døren er åben");
-                    $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
-                });
-            });
-
-            $(".button-right").click(function () {
-                    // Update status and change color
-                    $(".status h1").text("Døren er låst");
-                    $(".status").css("background-color", "red");
-                });
-            });
+    $(document).ready(function () {
+        $(".button-left").click(function () {       
+            // Update status and change color
+            $(".status h1").text("Døren er åben");
+            $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
         });
-    </script>
+
+        $(".button-right").click(function () {
+            // Update status and change color
+            $(".status h1").text("Døren er låst");
+            $(".status").css("background-color", "red");
+        });
+    });
+</script>
 
 </body>
 </html>
