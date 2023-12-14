@@ -14,8 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $brugernavn = $_POST["brugernavn"];
         $password = $_POST["password"];
 
-        $hashpw = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO brugere (navn, brugernavn, password) VALUES ('$navn', '$brugernavn', '$hashpw')";
+        $sql = "INSERT INTO brugere (navn, brugernavn, password) VALUES ('$navn', '$brugernavn', '$password')";
         $run_query = mysqli_query($conn, $sql);
 
         // Check if the query was successful

@@ -9,7 +9,7 @@ if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
     $brugernavn = $_POST["brugernavn"];
     $password = $_POST["password"];
 
-    
+    // Assuming $conn is your database connection
     $sql = "SELECT * FROM brugere WHERE brugernavn = '$brugernavn' AND password = '$password'";
     $run_query = mysqli_query($conn, $sql);
 
@@ -17,17 +17,11 @@ if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
     if($run_query){
         // Check if there is a matching user in the database
         if(mysqli_num_rows($run_query) > 0){
-            $row = mysqli_fetch_assoc($run_query);
-            $hashpw = $row["password"];
-            if (password_verify($password, $hashpw)){
             // Store the username in the session to indicate that the user is logged in
             $_SESSION["brugernavn"] = $brugernavn;
             header("Location: welcome.php");
             
             exit(); 
-            else { 
-                echo"Invalid username or password";
-            }
         } else {
             echo "Invalid username or password";
         }
@@ -53,7 +47,7 @@ if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
         margin: auto;
         margin-top: 50px;
         background-color: rgba(0, 0, 0, 0.5); 
-        padding: 20px; 
+        padding: 20px;
         border-radius: 10px; 
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); 
         color: #fff;
