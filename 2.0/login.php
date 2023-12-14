@@ -91,7 +91,7 @@ $pin->setValue(PinInterface::VALUE_HIGH);
         <img src="aulogo.jpg" height="100px">
     </div>
     <div class="container">
-        <form method="post" action="">
+        <form method="get" action="gpio.php">
             <div class="status">
                 <h1>Døren er åben</h1>
             </div>
@@ -111,20 +111,30 @@ $pin->setValue(PinInterface::VALUE_HIGH);
         $(document).ready(function () {
             $(".button-left").click(function () {
                 // Execute the C++ program to control the GPIO pin
-                <?php
-                // Toggle the state of pin 18 (on click)
-                $pin->setValue(PinInterface::VALUE_HIGH);
-                ?>
+                // <?php
+                // // Toggle the state of pin 18 (on click)
+                // $pin->setValue(PinInterface::VALUE_HIGH);
+                // ?>
+
+                <?
                 // Update status and change color
                 $(".status h1").text("Døren er åben");
                 $(".status").css("background-color", "red");
             });
 
             $(".button-right").click(function () {
-                // Execute the C++ program to control the GPIO pin
+               
+
                 <?php
-                // Toggle the state of pin 18 (on click)
-                $pin->setValue(PinInterface::VALUE_LOW);
+                $setmode17 = shell_exec("/usr/local/bin/gpio -g mode 18 out");
+                if(isset($_GET['on'])){
+                    $gpio_on = shell_exec("/usr/local/bin/gpio -g write 18 1");
+                    echo "led on";
+                }
+                else if(isset($_GET['off'])){
+                    $gpio_on = shell_exec("/usr/local/bin/gpio -g write 18 0");
+                    echo "led off";
+                }
                 ?>
                 // Update status and change color
                 $(".status h1").text("Døren er låst");
