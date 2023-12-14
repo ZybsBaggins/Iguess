@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($run_query) {
             echo "Registration successful";
             // Redirect to login page
-            header("Location: login.php");
+            header("Location: index.php");
             exit(); // Make sure to exit after a header redirect
         } else {
             echo "Query failed: " . mysqli_error($conn);

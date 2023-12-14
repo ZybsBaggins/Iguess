@@ -1,25 +1,37 @@
-<?php
+<?php  
+
+include "db.php";
+
 session_start();
 
+if(isset($_SESSION["brugernavn"])){
+    // User is already logged in, redirect them to another page or display a message
+    header("Location: welcome.php"); // Change to the appropriate page
+    exit();
+}
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST['on'])) {
-        // Set the GPIO pin to HIGH (ON)
-        shell_exec("/usr/bin/gpio -g write 18 1");
-        
-        //Log
-        $logMessage = "Button ON pressed";
-        echo $logMessage; // Echo the message to be captured in the terminal
-        exec("echo '" . $logMessage . "' >> /dev/tty1");
+if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
+    $brugernavn = $_POST["brugernavn"];
+    $password = $_POST["password"];
 
-    } elseif (isset($_POST['off'])) {
-        // Set the GPIO pin to LOW (OFF)
-        shell_exec("/usr/bin/gpio -g write 18 0");
-        
-        //Log
-        $logMessage = "Button OFF pressed";
-        echo $logMessage; // Echo the message to be captured in the terminal
-        exec("echo '" . $logMessage . "' >> /dev/tty1");
+    // Assuming $conn is your database connection
+    $sql = "SELECT * FROM brugere WHERE brugernavn = '$brugernavn' AND password = '$password'";
+    $run_query = mysqli_query($conn, $sql);
+
+    // Check if the query was successful
+    if($run_query){
+        // Check if there is a matching user in the database
+        if(mysqli_num_rows($run_query) > 0){
+            // Store the username in the session to indicate that the user is logged in
+            $_SESSION["brugernavn"] = $brugernavn;
+            header("Location: welcome.php");
+            
+            exit(); // Make sure to exit after a header redirect
+        } else {
+            echo "Invalid username or password";
+        }
+    } else {
+        echo "Query failed: " . mysqli_error($conn);
     }
 }
 ?>
@@ -29,114 +41,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
+    <title>Login Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: rgba(0, 0, 0, 0.3); 
+            background-color: rgba(0, 0, 0, 0.3); /* Black with 80% opacity */
         }
         .container {
-        width: 90%;
+        width: 300px;
         margin: auto;
-        margin-top: 100px;
-        background-color: rgba(0, 0, 0, 0.5);
-        padding: 20px; 
-        border-radius: 10px; 
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); 
+        margin-top: 50px;
+        background-color: rgba(0, 0, 0, 0.5); /* Black with 80% opacity */
+        padding: 20px; /* Add padding for content inside the container */
+        border-radius: 10px; /* Add rounded corners */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Add a subtle box shadow */
         color: #fff;
         }
-        .status {
-            margin-left: 2%;
-            margin-top: 5px;
-            width: 96.5%;
-            height: 50px;
-            text-align: center;
-            background-color: rgb(84,222,49, 0.5);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); 
-
-        }
-        .button-left{
-            margin-left: 2%;
-            margin-top: 10px;
-            width: 48%;
-            height: 300px;
-            text-align: center;
-            display: inline-block;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); 
-            
-
-        }
-        
-        .button-right{
-            margin-top: 10px;
-            width: 48%;
-            height: 300px;
-            text-align: center;
-            display: inline-block; 
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-
-        }
-
-        .button-left:hover,
-        .button-right:hover {
-            background-color: rgba(255, 255, 255, 0.2); /* Change color on hover */
-            cursor: pointer; /* Change cursor on hover */
-        }
-
-        .button-left:active,
-        .button-right:active {
-            background-color: rgba(255, 255, 255, 0.4); /* Change color when clicked */
-        }
-
     </style>
 </head>
-
 <body>
     <div>
         <img src="aulogo.jpg" height="100px">
     </div>
     <div class="container">
-        <form method="post" action="login.php">
-            <div class="status">
-                <h1>
-                    <?php
-                    // Read and display the current state of the GPIO pin
-                    $gpio_state = shell_exec("/usr/bin/gpio -g read 18");
-                    if ($gpio_state == 1) {
-                        echo "Døren er låst";
-                    } else {
-                        echo "Døren er åben";
-                    }
-                    ?>
-                </h1>
+        <form method="post" action="">
+            <div>
+                <h1> Dørlås Login
+            </div>  
+            <div class="input-box">
+                <label for="brugernavn">Username:</label>
+                <input type="text" name="brugernavn" id="brugernavn" required>
             </div>
-            <div class="button-left">
-                <input type="submit" value="OFF" name="off">
-                <h1> Lås OP </h1>
+            <div class="input-box">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
             </div>
-            <div class="button-right">
-                <input type="submit" value="ON" name="on">
-                <h1> Lås døren </h1>
-            </div>
+            <button type="submit">Submit</button>
         </form>
+
+
+        <button onclick="location.href='register.php'">Register</button>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    
-    <script>
-        $(document).ready(function () {
-            $(".button-left").click(function () {       
-                // Update status and change color
-                $(".status h1").text("Døren er låst");
-                $(".status").css("background-color", "red");
-            });
-
-            $(".button-right").click(function () {
-                // Update status and change color
-                $(".status h1").text("Døren er åben");
-                $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
-            });
-        });
-    </script>
 </body>
 </html>

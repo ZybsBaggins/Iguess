@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/mikk2/Documents/AU/3.semester/Projekt/Iguess/2.0",
-      "program": "c:/Users/mikk2/Documents/AU/3.semester/Projekt/Iguess/2.0/build/Debug/outDebug",
+      "cwd": "c:/Users/mikk2/Documents/AU/3.semester/Projekt/Iguess/4.0/Projektdrivers/ProjektdriversReal/main",
+      "program": "c:/Users/mikk2/Documents/AU/3.semester/Projekt/Iguess/4.0/Projektdrivers/ProjektdriversReal/main/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
