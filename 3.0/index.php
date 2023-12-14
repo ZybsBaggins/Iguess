@@ -5,6 +5,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST['on'])) {
         // Set the GPIO pin to HIGH (ON)
         shell_exec("/usr/bin/gpio -g write 18 1");
+        sleep(5);
+        shell_exec("/usr/bin/gpio -g write 18 0");
+        
     } elseif (isset($_POST['off'])) {
         // Set the GPIO pin to LOW (OFF)
         shell_exec("/usr/bin/gpio -g write 18 0");
