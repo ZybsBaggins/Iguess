@@ -9,7 +9,7 @@ session_start();
 </head>
 <body>
     LED Control:
-    <form method="get" action="gpio.php">
+    <form method="post" action="gpio.php">
         <input type="submit" value="ON" name="on">
         <input type="submit" value="OFF" name="off">
     </form>
