@@ -16,7 +16,7 @@ session_start();
 
     <?php
     // Validate and sanitize user input
-    if (isset($_GET['on'])) {
+    if (isset($_POST['on'])) {
         // Ensure that 18 is the correct GPIO pin number for your LED
         $gpio_on = shell_exec("/usr/local/bin/gpio -g write 18 1");
         if ($gpio_on === false) {
@@ -24,7 +24,7 @@ session_start();
         } else {
             echo "LED is on";
         }
-    } elseif (isset($_GET['off'])) {
+    } elseif (isset($_POST['off'])) {
         // Ensure that 18 is the correct GPIO pin number for your LED
         $gpio_off = shell_exec("/usr/local/bin/gpio -g write 18 0");
         if ($gpio_off === false) {
