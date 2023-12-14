@@ -1,5 +1,21 @@
 <?php
 session_start();
+
+require_once 'vendor/autoload.php'; // Include the autoloader for PiPHP GPIO
+
+use PiPHP\GPIO\GPIO;
+use PiPHP\GPIO\Pin\InputPinInterface;
+use PiPHP\GPIO\Pin\OutputPinInterface;
+
+// Create a GPIO object
+$gpio = new GPIO();
+
+// Retrieve pin 18 and configure it as an output pin
+$pin = $gpio->getOutputPin(18);
+
+// Set the initial state of the pin (e.g., low)
+$pin->setValue(OutputPinInterface::VALUE_LOW);
+
 ?>
 
 <!DOCTYPE html>
@@ -94,8 +110,10 @@ session_start();
         $(document).ready(function () {
             $(".button-left").click(function () {
                 // Execute the C++ program to control the GPIO pin
-                <?php shell_exec('/var/www/html/gpio_left'); ?>
-                
+                <?php
+                // Toggle the state of pin 18 (on click)
+                $pin->setValue($pin->getValue() === OutputPinInterface::VALUE_LOW ? OutputPinInterface::VALUE_HIGH : OutputPinInterface::VALUE_LOW);
+                ?>
                 // Update status and change color
                 $(".status h1").text("Døren er åben");
                 $(".status").css("background-color", "red");
@@ -103,8 +121,10 @@ session_start();
 
             $(".button-right").click(function () {
                 // Execute the C++ program to control the GPIO pin
-                <?php shell_exec('/var/www/html/gpio_right'); ?>
-                
+                <?php
+                // Toggle the state of pin 18 (on click)
+                $pin->setValue($pin->getValue() === OutputPinInterface::VALUE_LOW ? OutputPinInterface::VALUE_HIGH : OutputPinInterface::VALUE_LOW);
+                ?>
                 // Update status and change color
                 $(".status h1").text("Døren er låst");
                 $(".status").css("background-color", "green");
