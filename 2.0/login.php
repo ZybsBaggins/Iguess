@@ -94,12 +94,8 @@ $pin->setValue(PinInterface::VALUE_HIGH);
         <form method="get" action="gpio.php">
             <div class="status">
                 <h1>Døren er åben</h1>
-            </div>
-            <div class="button-left">
-                <h1> Lås OP </h1>
-            </div>
-            <div class="button-right">
-                <h1> Lås døren </h1>
+            <input type="submit" value="ON" name= "on">
+            <input type="submit" value="OFF" name= "off">
             </div>
 
         </form>
