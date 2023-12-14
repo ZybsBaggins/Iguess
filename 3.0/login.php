@@ -1,5 +1,15 @@
 <?php
 session_start();
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST['on'])) {
+        // Set the GPIO pin to HIGH (ON)
+        shell_exec("/usr/bin/gpio -g write 18 1");
+    } elseif (isset($_POST['off'])) {
+        // Set the GPIO pin to LOW (OFF)
+        shell_exec("/usr/bin/gpio -g write 18 0");
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -76,37 +86,45 @@ session_start();
     <div class="container">
         <form method="post" action="login.php">
             <div class="status">
-                <h1>Døren er åben</h1>
+                <h1>
+                    <?php
+                    // Read and display the current state of the GPIO pin
+                    $gpio_state = shell_exec("/usr/bin/gpio -g read 18");
+                    if ($gpio_state == 1) {
+                        echo "Døren er åben";
+                    } else {
+                        echo "Døren er låst";
+                    }
+                    ?>
+                </h1>
             </div>
             <div class="button-left">
                 <input type="submit" value="ON" name="on">
                 <h1> Lås OP </h1>
             </div>
             <div class="button-right">
-            <input type="submit" value="OFF" name="off">
+                <input type="submit" value="OFF" name="off">
                 <h1> Lås døren </h1>
             </div>
-
         </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     
     <script>
-    $(document).ready(function () {
-        $(".button-left").click(function () {       
-            // Update status and change color
-            $(".status h1").text("Døren er åben");
-            $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
-        });
+        $(document).ready(function () {
+            $(".button-left").click(function () {       
+                // Update status and change color
+                $(".status h1").text("Døren er åben");
+                $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
+            });
 
-        $(".button-right").click(function () {
-            // Update status and change color
-            $(".status h1").text("Døren er låst");
-            $(".status").css("background-color", "red");
+            $(".button-right").click(function () {
+                // Update status and change color
+                $(".status h1").text("Døren er låst");
+                $(".status").css("background-color", "red");
+            });
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>
