@@ -5,14 +5,14 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST['on'])) {
         // Set the GPIO pin to HIGH (ON)
-        shell_exec("/usr/bin/gpio -g write 18 1");
+        shell_exec("/usr/local/bin/gpio -g write 18 1");
         
         //Log
         error_log("Button ON pressed");
 
     } elseif (isset($_POST['off'])) {
         // Set the GPIO pin to LOW (OFF)
-        shell_exec("/usr/bin/gpio -g write 18 0");
+        shell_exec("/usr/local/bin/gpio -g write 18 0");
         
         //Log
         error_log("Button off pressed");;
