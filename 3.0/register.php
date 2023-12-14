@@ -14,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $brugernavn = $_POST["brugernavn"];
         $password = $_POST["password"];
 
-        
-        $sql = "INSERT INTO brugere (navn, brugernavn, password) VALUES ('$navn', '$brugernavn', '$password')";
+        $hashpw = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO brugere (navn, brugernavn, password) VALUES ('$navn', '$brugernavn', '$hashpw')";
         $run_query = mysqli_query($conn, $sql);
 
         // Check if the query was successful
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Registration successful";
             // Redirect to login page
             header("Location: index.php");
-            exit(); // Make sure to exit after a header redirect
+            exit(); 
         } else {
             echo "Query failed: " . mysqli_error($conn);
         }
@@ -40,16 +40,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: rgba(0, 0, 0, 0.3); /* Black with 80% opacity */
+            background-color: rgba(0, 0, 0, 0.3); 
         }
         .container {
         width: 300px;
         margin: auto;
         margin-top: 100px;
-        background-color: rgba(0, 0, 0, 0.5); /* Black with 80% opacity */
-        padding: 20px; /* Add padding for content inside the container */
-        border-radius: 10px; /* Add rounded corners */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Add a subtle box shadow */
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 20px; 
+        border-radius: 10px; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
         color: #fff;
         }
         .input-box {
