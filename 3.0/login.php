@@ -91,19 +91,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     // Read and display the current state of the GPIO pin
                     $gpio_state = shell_exec("/usr/bin/gpio -g read 18");
                     if ($gpio_state == 1) {
-                        echo "Døren er åben";
-                    } else {
                         echo "Døren er låst";
+                    } else {
+                        echo "Døren er åben";
                     }
                     ?>
                 </h1>
             </div>
             <div class="button-left">
-                <input type="submit" value="ON" name="on">
+                <input type="submit" value="OFF" name="off">
                 <h1> Lås OP </h1>
             </div>
             <div class="button-right">
-                <input type="submit" value="OFF" name="off">
+                <input type="submit" value="ON" name="on">
                 <h1> Lås døren </h1>
             </div>
         </form>
@@ -115,14 +115,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $(document).ready(function () {
             $(".button-left").click(function () {       
                 // Update status and change color
-                $(".status h1").text("Døren er åben");
-                $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
+                $(".status h1").text("Døren er låst");
+                $(".status").css("background-color", "red");
             });
 
             $(".button-right").click(function () {
                 // Update status and change color
-                $(".status h1").text("Døren er låst");
-                $(".status").css("background-color", "red");
+                $(".status h1").text("Døren er åben");
+                $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
             });
         });
     </script>
