@@ -4,11 +4,6 @@ include "db.php";
 
 session_start();
 
-if(isset($_SESSION["brugernavn"])){
-    // User is already logged in, redirect them to another page or display a message
-    header("Location: welcome.php"); // Change to the appropriate page
-    exit();
-}
 
 if(isset($_POST["brugernavn"]) && isset($_POST["password"])){
     $brugernavn = $_POST["brugernavn"];
