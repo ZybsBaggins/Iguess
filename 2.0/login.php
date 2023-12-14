@@ -103,7 +103,7 @@ session_start();
 
             $(".button-right").click(function () {
                 // Execute the C++ program to control the GPIO pin
-                <?php shell_exec('/var/www/html/gpio_rignt'); ?>
+                <?php shell_exec('/var/www/html/gpio_right'); ?>
                 
                 // Update status and change color
                 $(".status h1").text("Døren er låst");
