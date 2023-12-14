@@ -110,7 +110,6 @@ session_start();
                 $(".status").css("background-color", "green");
             });
             });
-        });
     </script>
 
 </body>
