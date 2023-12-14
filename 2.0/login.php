@@ -103,25 +103,7 @@ $pin->setValue(PinInterface::VALUE_HIGH);
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     
-    <script>
-        $(document).ready(function () {
-            $(".button-left").click(function () {
-                // Execute the C++ program to control the GPIO pin
-                // <?php
-                // // Toggle the state of pin 18 (on click)
-                // $pin->setValue(PinInterface::VALUE_HIGH);
-                // ?>
-
-                <?
-                // Update status and change color
-                $(".status h1").text("Døren er åben");
-                $(".status").css("background-color", "red");
-            });
-
-            $(".button-right").click(function () {
-               
-
-                <?php
+    <?php
                 $setmode17 = shell_exec("/usr/local/bin/gpio -g mode 18 out");
                 if(isset($_GET['on'])){
                     $gpio_on = shell_exec("/usr/local/bin/gpio -g write 18 1");
@@ -131,13 +113,7 @@ $pin->setValue(PinInterface::VALUE_HIGH);
                     $gpio_on = shell_exec("/usr/local/bin/gpio -g write 18 0");
                     echo "led off";
                 }
-                ?>
-                // Update status and change color
-                $(".status h1").text("Døren er låst");
-                $(".status").css("background-color", "green");
-            });
-            });
-    </script>
-
+    ?>
+    
 </body>
 </html>
