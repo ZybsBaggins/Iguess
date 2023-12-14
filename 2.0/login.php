@@ -98,7 +98,7 @@ session_start();
                 
                 // Update status and change color
                 $(".status h1").text("Døren er åben");
-                $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
+                $(".status").css("background-color", "red");
             });
 
             $(".button-right").click(function () {
@@ -106,8 +106,8 @@ session_start();
                 <?php shell_exec('/path/to/gpio_rignt'); ?>
                 
                 // Update status and change color
-                $(".status h1").text("Døren er åben");
-                $(".status").css("background-color", "rgb(84, 222, 49, 0.5)");
+                $(".status h1").text("Døren er låst");
+                $(".status").css("background-color", "green");
             });
             });
         });
